@@ -1,11 +1,48 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import { Home, Calendar, Building2, Clipboard, TrendingUp } from 'lucide-vue-next'
+import propertyService from '../services/propertyService'
+import bookingService from '../services/bookingService'
+import { useToastNotification } from '../utils/toast'
 
-// Mock data - replace with real API calls
+const router = useRouter()
+const toast = useToastNotification()
+
 const stats = ref({
-  totalProperties: 45,
-  totalBookings: 328,
+  totalProperties: 0,
+  totalBookings: 0,
+})
+
+const loading = ref(true)
+
+const fetchStats = async () => {
+  try {
+    loading.value = true
+    const [properties, bookings] = await Promise.all([
+      propertyService.getAllProperties(),
+      bookingService.getAllBookings(),
+    ])
+    stats.value.totalProperties = properties.length
+    stats.value.totalBookings = bookings.length
+  } catch (error) {
+    console.error('Error fetching stats:', error)
+    toast.error('Gagal memuat data statistik')
+  } finally {
+    loading.value = false
+  }
+}
+
+const goToProperties = () => {
+  router.push('/property')
+}
+
+const goToBookings = () => {
+  router.push('/bookings')
+}
+
+onMounted(() => {
+  fetchStats()
 })
 </script>
 
