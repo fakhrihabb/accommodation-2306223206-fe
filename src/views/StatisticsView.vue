@@ -20,7 +20,9 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 interface PropertyIncome {
   propertyName: string
-  income: number
+  monthlyRevenue: number
+  totalIncome: number
+  propertyID: string
 }
 
 const router = useRouter()
@@ -116,24 +118,52 @@ const fetchChartData = async () => {
     loading.value = true
     const response = await bookingService.getChartData(selectedMonth.value, selectedYear.value)
 
-    console.log('Chart data response:', response) // Debug log
+    console.log('=== Chart Data Debug ===')
+    console.log('Full response:', JSON.parse(JSON.stringify(response)))
+    console.log('Response type:', typeof response)
+    console.log('Is array?', Array.isArray(response))
+    console.log('Response keys:', response ? Object.keys(response) : 'null')
+    console.log('Month:', selectedMonth.value, 'Year:', selectedYear.value)
 
     // The response could be an array directly or an object with properties
     // Handle both cases
     let properties: PropertyIncome[] = []
     if (Array.isArray(response)) {
       properties = response
+      console.log('Using response as array directly')
     } else if (response && response.properties && Array.isArray(response.properties)) {
       properties = response.properties
+      console.log('Using response.properties')
+    } else if (response && typeof response === 'object') {
+      // Check all keys in the response object
+      console.log('Response structure not recognized. Trying to find data...')
+      console.log('Available keys:', Object.keys(response))
+      // Try to find any array property
+      const arrayKey = Object.keys(response).find(key => Array.isArray(response[key]))
+      if (arrayKey) {
+        properties = response[arrayKey]
+        console.log(`Found array in key: ${arrayKey}`)
+      }
+    } else {
+      console.log('Response is null or not an object:', response)
     }
 
-    // Sort by income (highest first)
-    const sortedData = properties.sort((a: PropertyIncome, b: PropertyIncome) => b.income - a.income)
+    console.log('Properties array:', JSON.parse(JSON.stringify(properties)))
+    console.log('Properties length:', properties.length)
+
+    // Sort by monthlyRevenue (highest first)
+    const sortedData = properties.sort((a: PropertyIncome, b: PropertyIncome) => b.monthlyRevenue - a.monthlyRevenue)
+
+    console.log('Sorted data:', JSON.parse(JSON.stringify(sortedData)))
 
     chartData.value.labels = sortedData.map((item: PropertyIncome) => item.propertyName)
     if (chartData.value.datasets[0]) {
-      chartData.value.datasets[0].data = sortedData.map((item: PropertyIncome) => item.income)
+      chartData.value.datasets[0].data = sortedData.map((item: PropertyIncome) => item.monthlyRevenue)
     }
+
+    console.log('Chart labels:', JSON.parse(JSON.stringify(chartData.value.labels)))
+    console.log('Chart data:', JSON.parse(JSON.stringify(chartData.value.datasets[0]?.data)))
+    console.log('Chart datasets:', JSON.parse(JSON.stringify(chartData.value.datasets)))
 
     if (sortedData.length === 0) {
       toast.info('Tidak ada data untuk bulan dan tahun yang dipilih')

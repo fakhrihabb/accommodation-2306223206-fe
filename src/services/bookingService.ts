@@ -114,7 +114,9 @@ const bookingService = {
 
   // GET chart data
   getChartData: async (month: number, year: number) => {
+    console.log(`Fetching chart data for month: ${month}, year: ${year}`)
     const response = await apiClient.get(`/bookings/chart?month=${month}&year=${year}`)
+    console.log('Raw API response:', response.data)
     return response.data.data // Extract data from BaseResponse
   },
 }
