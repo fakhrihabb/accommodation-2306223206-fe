@@ -1,20 +1,75 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import DashboardView from '../views/DashboardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
+      name: 'dashboard',
+      component: DashboardView,
+    },
+    // Property routes
+    {
+      path: '/property',
+      name: 'property',
+      component: () => import('../views/PropertyView.vue'),
+    },
+    {
+      path: '/property/create',
+      name: 'property-create',
+      component: () => import('../views/PropertyCreateView.vue'),
+    },
+    {
+      path: '/property/:id',
+      name: 'property-detail',
+      component: () => import('../views/PropertyDetailView.vue'),
+    },
+    {
+      path: '/property/update/:id',
+      name: 'property-update',
+      component: () => import('../views/PropertyUpdateView.vue'),
+    },
+    {
+      path: '/property/updateroom/:id',
+      name: 'property-add-room',
+      component: () => import('../views/PropertyAddRoomView.vue'),
+    },
+    // Booking routes
+    {
+      path: '/bookings',
+      name: 'bookings',
+      component: () => import('../views/BookingsView.vue'),
+    },
+    {
+      path: '/bookings/create',
+      name: 'booking-create',
+      component: () => import('../views/BookingCreateView.vue'),
+    },
+    {
+      path: '/bookings/create/:roomId',
+      name: 'booking-create-room',
+      component: () => import('../views/BookingCreateView.vue'),
+    },
+    {
+      path: '/bookings/:id',
+      name: 'booking-detail',
+      component: () => import('../views/BookingDetailView.vue'),
+    },
+    {
+      path: '/bookings/update/:id',
+      name: 'booking-update',
+      component: () => import('../views/BookingUpdateView.vue'),
+    },
+    // Statistics routes
+    {
+      path: '/statistics',
+      name: 'statistics',
+      component: () => import('../views/StatisticsView.vue'),
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
     },
   ],
