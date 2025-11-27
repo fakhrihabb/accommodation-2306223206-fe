@@ -6,15 +6,42 @@ html {
 }
 
 body {
-  background: var(--gradient-light);
+  background: var(--bg-dark);
   min-height: 100vh;
+  color: var(--text-primary);
 }
 
 #app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: var(--gradient-light);
+  background: var(--bg-dark);
+}
+
+/* Global Dark Theme Inputs */
+input,
+select,
+textarea {
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
+}
+
+/* Global Button Styles */
+button {
+  font-family: 'Poppins', sans-serif;
 }
 
 /* Reusable Container */
@@ -44,25 +71,27 @@ body {
 
 /* Card Styles */
 .card {
-  background: white;
+  background: var(--bg-card);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .card:hover {
-  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.15);
+  box-shadow: 0 8px 24px rgba(212, 165, 116, 0.2);
   transform: translateY(-4px);
+  border-color: rgba(212, 165, 116, 0.4);
 }
 
 /* Stat Card Specific */
 .stat-card {
-  background: white;
-  border-left: 4px solid var(--primary-tosca);
+  background: var(--bg-card);
+  border-left: 4px solid var(--primary-gold);
   border-radius: 8px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(32, 178, 170, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   text-align: center;
   min-width: 200px;
 }
@@ -70,7 +99,7 @@ body {
 .stat-value {
   font-size: 2.5rem;
   font-weight: bold;
-  color: var(--primary-blue);
+  color: var(--primary-gold);
   margin: 1rem 0 0.5rem 0;
 }
 
@@ -92,14 +121,14 @@ body {
 a,
 .green {
   text-decoration: none;
-  color: var(--primary-tosca);
+  color: var(--primary-gold);
   transition: 0.4s;
   padding: 3px;
 }
 
 @media (hover: hover) {
   a:hover {
-    background-color: rgba(32, 178, 170, 0.2);
+    background-color: rgba(212, 165, 116, 0.2);
   }
 }
 

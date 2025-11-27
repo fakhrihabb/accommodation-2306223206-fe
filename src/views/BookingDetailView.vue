@@ -416,6 +416,8 @@ onMounted(() => {
 
 <style scoped>
 .detail-container {
+  background: var(--bg-dark);
+  min-height: calc(100vh - 80px);
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -427,7 +429,7 @@ onMounted(() => {
 
 .detail-header h1 {
   font-size: 2rem;
-  color: var(--neutral-dark);
+  color: var(--text-primary);
   margin-top: 1rem;
 }
 
@@ -436,8 +438,9 @@ onMounted(() => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   color: var(--text-primary);
   cursor: pointer;
@@ -445,7 +448,7 @@ onMounted(() => {
 }
 
 .btn-back:hover {
-  background: #f8f9fa;
+  background: rgba(212, 165, 116, 0.1);
 }
 
 .loading {
@@ -482,10 +485,11 @@ onMounted(() => {
 }
 
 .info-card {
-  background: white;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .card-header {
@@ -494,12 +498,12 @@ onMounted(() => {
   align-items: center;
   margin-bottom: 1.5rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--border-color);
 }
 
 .card-header h2 {
   font-size: 1.5rem;
-  color: var(--primary-blue);
+  color: var(--primary-gold);
 }
 
 .status-badge {
@@ -571,7 +575,7 @@ onMounted(() => {
 
 .payment-card h2 {
   font-size: 1.3rem;
-  color: var(--primary-blue);
+  color: var(--primary-gold);
   margin-bottom: 1.5rem;
 }
 
@@ -586,12 +590,13 @@ onMounted(() => {
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem;
-  background: white;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
 }
 
 .payment-row span {
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .payment-row strong {
@@ -621,7 +626,7 @@ onMounted(() => {
 }
 
 .total-amount {
-  color: var(--primary-blue);
+  color: var(--primary-gold);
   font-size: 1.3rem;
 }
 
@@ -630,9 +635,10 @@ onMounted(() => {
   gap: 1rem;
   flex-wrap: wrap;
   padding: 1rem;
-  background: white;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .btn-action {
@@ -663,7 +669,7 @@ onMounted(() => {
 }
 
 .btn-update {
-  background: var(--primary-blue);
+  background: var(--primary-gold);
   color: white;
 }
 
@@ -718,7 +724,8 @@ onMounted(() => {
 }
 
 .modal {
-  background: white;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 2rem;
   max-width: 500px;
@@ -732,7 +739,7 @@ onMounted(() => {
 
 .modal-header h3 {
   font-size: 1.5rem;
-  color: var(--neutral-dark);
+  color: var(--text-primary);
 }
 
 .modal-body {
@@ -746,7 +753,7 @@ onMounted(() => {
 }
 
 .modal-body strong {
-  color: var(--primary-blue);
+  color: var(--primary-gold);
 }
 
 .modal-actions {
@@ -800,6 +807,8 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .detail-container {
+  background: var(--bg-dark);
+  min-height: calc(100vh - 80px);
     padding: 1rem;
   }
 

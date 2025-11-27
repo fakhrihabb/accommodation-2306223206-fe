@@ -344,6 +344,8 @@ onMounted(() => {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
+  min-height: calc(100vh - 80px);
+  background: var(--bg-dark);
 }
 
 .loading {
@@ -374,7 +376,7 @@ onMounted(() => {
 
 .detail-header h1 {
   font-size: 2rem;
-  color: var(--neutral-dark);
+  color: var(--text-primary);
   margin: 1rem 0;
 }
 
@@ -383,8 +385,8 @@ onMounted(() => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   color: var(--text-primary);
   cursor: pointer;
@@ -392,7 +394,8 @@ onMounted(() => {
 }
 
 .btn-back:hover {
-  background: #f8f9fa;
+  background: rgba(212, 165, 116, 0.1);
+  border-color: var(--primary-gold);
 }
 
 .action-buttons {
@@ -418,13 +421,13 @@ onMounted(() => {
 }
 
 .btn-add {
-  background: var(--primary-blue);
+  background: var(--primary-gold);
   color: white;
 }
 
 .btn-update {
-  background: #ffc107;
-  color: #000;
+  background: var(--primary-dark-gold);
+  color: white;
 }
 
 .btn-delete {
@@ -444,15 +447,16 @@ onMounted(() => {
 }
 
 .info-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
 }
 
 .info-card h2 {
   font-size: 1.8rem;
-  color: var(--primary-blue);
+  color: var(--primary-gold);
   margin-bottom: 0.5rem;
 }
 
@@ -465,7 +469,7 @@ onMounted(() => {
 .info-row {
   display: flex;
   padding: 0.75rem 0;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .info-row:last-child {
@@ -484,16 +488,17 @@ onMounted(() => {
 }
 
 .filter-section {
-  background: white;
+  background: var(--bg-card);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
 }
 
 .filter-section h3 {
   margin-bottom: 1rem;
-  color: var(--neutral-dark);
+  color: var(--text-primary);
 }
 
 .date-filters {
@@ -517,14 +522,16 @@ onMounted(() => {
 
 .date-input {
   padding: 0.75rem 1rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
+  background: var(--bg-dark);
+  color: var(--text-primary);
 }
 
 .btn-filter {
   padding: 0.75rem 2rem;
-  background: var(--primary-blue);
+  background: var(--primary-gold);
   color: white;
   border: none;
   border-radius: 8px;
@@ -535,22 +542,24 @@ onMounted(() => {
 }
 
 .btn-filter:hover {
-  background: #005299;
+  background: var(--primary-dark-gold);
   transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(212, 165, 116, 0.4);
 }
 
 .room-types-section h3 {
   font-size: 1.5rem;
-  color: var(--neutral-dark);
+  color: var(--text-primary);
   margin-bottom: 1.5rem;
 }
 
 .room-type-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-color);
 }
 
 .room-type-header {
@@ -559,18 +568,18 @@ onMounted(() => {
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 1rem;
-  border-bottom: 2px solid #f0f0f0;
+  border-bottom: 2px solid var(--border-color);
 }
 
 .room-type-header h4 {
   font-size: 1.3rem;
-  color: var(--primary-blue);
+  color: var(--primary-gold);
 }
 
 .room-type-price {
   font-size: 1.2rem;
   font-weight: 600;
-  color: var(--primary-tosca);
+  color: var(--primary-gold);
 }
 
 .room-type-info {
@@ -592,18 +601,18 @@ onMounted(() => {
 }
 
 .rooms-table thead {
-  background: #f8f9fa;
+  background: rgba(212, 165, 116, 0.1);
 }
 
 .rooms-table th,
 .rooms-table td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .rooms-table td {
-  color: #2c3e50;
+  color: var(--text-primary);
 }
 
 .rooms-table th {
@@ -648,7 +657,7 @@ onMounted(() => {
 }
 
 .btn-book {
-  background: var(--primary-blue);
+  background: var(--primary-gold);
   color: white;
 }
 
@@ -680,17 +689,18 @@ onMounted(() => {
 }
 
 .modal {
-  background: white;
+  background: var(--bg-card);
   border-radius: 12px;
   padding: 2rem;
   max-width: 500px;
   width: 90%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-color);
 }
 
 .modal h3 {
   margin-bottom: 1rem;
-  color: var(--neutral-dark);
+  color: var(--text-primary);
 }
 
 .modal p {
@@ -712,9 +722,11 @@ onMounted(() => {
 .form-input {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
+  background: var(--bg-dark);
+  color: var(--text-primary);
 }
 
 .modal-actions {

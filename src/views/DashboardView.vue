@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { Home, Calendar, Building2, Clipboard, TrendingUp } from 'lucide-vue-next'
+import { Building2, Calendar, TrendingUp } from 'lucide-vue-next'
 import propertyService from '../services/propertyService'
 import bookingService from '../services/bookingService'
 import { useToastNotification } from '../utils/toast'
@@ -41,201 +41,318 @@ const goToBookings = () => {
   router.push('/bookings')
 }
 
+const goToStatistics = () => {
+  router.push('/statistics')
+}
+
 onMounted(() => {
   fetchStats()
 })
 </script>
 
 <template>
-  <div class="dashboard-container">
-    <div class="dashboard-content">
-      <h1 class="dashboard-title">Selamat Datang di TravelAPAP</h1>
-      <p class="dashboard-subtitle">Platform Manajemen Akomodasi Terpadu</p>
+  <div class="landing-page">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-container">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="hero-title">Modul Akomodasi</h1>
+            <p class="hero-subtitle">
+              Kelola properti dan pemesanan akomodasi Anda dengan mudah melalui sistem manajemen
+              terpadu TravelAPAP
+            </p>
 
-      <div class="stats-section">
-        <div class="stat-card">
-          <Home class="stat-icon" :size="40" />
-          <div class="stat-value">{{ stats.totalProperties }}</div>
-          <div class="stat-label">Total Properti</div>
-        </div>
+            <!-- Metric Cards in Hero -->
+            <div class="hero-metrics">
+              <div class="metric-tag">
+                <Building2 :size="16" />
+                <span>{{ stats.totalProperties }} Properti</span>
+              </div>
+              <div class="metric-tag">
+                <Calendar :size="16" />
+                <span>{{ stats.totalBookings }} Pemesanan</span>
+              </div>
+            </div>
+          </div>
 
-        <div class="stat-card">
-          <Calendar class="stat-icon" :size="40" />
-          <div class="stat-value">{{ stats.totalBookings }}</div>
-          <div class="stat-label">Total Pemesanan</div>
+          <div class="hero-image">
+            <img
+              src="/images/hotel_lobby.png"
+              alt="Hotel Lobby"
+              class="hero-img"
+            />
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="dashboard-features">
-        <h2>Fitur Utama</h2>
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="features-container">
+        <h2 class="section-title">Fitur Utama</h2>
+        <p class="section-subtitle">
+          Kemudahan dalam mengelola properti dan pemesanan akomodasi
+        </p>
+
         <div class="features-grid">
-          <div class="feature-item">
-            <Building2 class="feature-icon" :size="48" />
-            <h3>Kelola Properti</h3>
-            <p>Tambah, edit, dan kelola semua properti akomodasi Anda dengan mudah</p>
+          <div class="feature-card" @click="goToProperties">
+            <div class="feature-icon-wrapper">
+              <Building2 class="feature-icon" :size="32" />
+            </div>
+            <h3 class="feature-title">Kelola Properti</h3>
+            <p class="feature-description">
+              Tambah, edit, dan kelola semua properti akomodasi dengan sistem yang terintegrasi
+            </p>
           </div>
-          <div class="feature-item">
-            <Clipboard class="feature-icon" :size="48" />
-            <h3>Kelola Pemesanan</h3>
-            <p>Pantau dan proses semua pemesanan dari tamu dengan efisien</p>
+
+          <div class="feature-card" @click="goToBookings">
+            <div class="feature-icon-wrapper">
+              <Calendar class="feature-icon" :size="32" />
+            </div>
+            <h3 class="feature-title">Kelola Pemesanan</h3>
+            <p class="feature-description">
+              Pantau dan proses semua pemesanan dari tamu secara efisien dan real-time
+            </p>
           </div>
-          <div class="feature-item">
-            <TrendingUp class="feature-icon" :size="48" />
-            <h3>Analitik & Laporan</h3>
-            <p>Lihat statistik mendalam tentang performa akomodasi Anda</p>
+
+          <div class="feature-card" @click="goToStatistics">
+            <div class="feature-icon-wrapper">
+              <TrendingUp class="feature-icon" :size="32" />
+            </div>
+            <h3 class="feature-title">Analitik & Laporan</h3>
+            <p class="feature-description">
+              Dapatkan insight mendalam tentang performa akomodasi melalui statistik detail
+            </p>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
-.dashboard-container {
-  display: flex;
-  justify-content: center;
+.landing-page {
+  min-height: calc(100vh - 80px);
+  background: var(--bg-dark);
+}
+
+/* Hero Section */
+.hero-section {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.05) 0%, rgba(201, 169, 97, 0.05) 100%);
+}
+
+.hero-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
   align-items: center;
-  flex: 1;
-  padding: 3rem 2rem;
-  background: var(--gradient-light);
 }
 
-.dashboard-content {
-  text-align: center;
-  max-width: 900px;
-  width: 100%;
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.dashboard-title {
-  font-size: 3rem;
-  font-weight: bold;
-  background: var(--gradient-primary);
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #d4a574 0%, #c9a961 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  margin: 0;
 }
 
-.dashboard-subtitle {
-  font-size: 1.3rem;
+.hero-subtitle {
+  font-size: 1.2rem;
   color: var(--text-secondary);
-  margin-bottom: 3rem;
+  line-height: 1.7;
+  margin: 0;
 }
 
-.stats-section {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 2rem;
-  margin-bottom: 4rem;
-  justify-content: center;
+.hero-metrics {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
 }
 
-.stat-card {
-  background: white;
-  border-left: 5px solid var(--primary-tosca);
-  border-radius: 12px;
-  padding: 2rem 1.5rem;
-  box-shadow: 0 4px 12px rgba(0, 102, 204, 0.1);
+.metric-tag {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-card);
+  padding: 0.6rem 1.2rem;
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(212, 165, 116, 0.3);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-gold);
   transition: all 0.3s ease;
 }
 
-.stat-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(0, 102, 204, 0.2);
+.metric-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.4);
+  border-color: var(--primary-gold);
 }
 
-.stat-icon {
-  color: var(--primary-tosca);
-  margin-bottom: 0.5rem;
+.hero-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.stat-value {
+.hero-img {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(212, 165, 116, 0.2);
+  border: 2px solid rgba(212, 165, 116, 0.2);
+  object-fit: cover;
+}
+
+/* Features Section */
+.features-section {
+  padding: 4rem 0 5rem 0;
+  background: var(--bg-dark-secondary);
+}
+
+.features-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-title {
   font-size: 2.5rem;
-  font-weight: bold;
-  color: var(--primary-blue);
-  margin: 0.5rem 0;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
-.stat-label {
-  font-size: 0.95rem;
+.section-subtitle {
+  font-size: 1.1rem;
   color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.dashboard-features {
-  margin-top: 3rem;
-  padding-top: 3rem;
-  border-top: 2px solid rgba(0, 102, 204, 0.1);
-}
-
-.dashboard-features h2 {
-  font-size: 2rem;
-  color: var(--neutral-dark);
-  margin-bottom: 2rem;
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
 }
 
-.feature-item {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(32, 178, 170, 0.1);
+.feature-card {
+  background: var(--bg-card);
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
+  cursor: pointer;
+  border: 1px solid rgba(212, 165, 116, 0.2);
 }
 
-.feature-item:hover {
+.feature-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(32, 178, 170, 0.2);
+  box-shadow: 0 12px 32px rgba(212, 165, 116, 0.3);
+  border-color: var(--primary-gold);
+}
+
+.feature-icon-wrapper {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(201, 169, 97, 0.1) 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
 .feature-icon {
-  color: var(--primary-blue);
-  display: block;
-  margin: 0 auto 1rem auto;
+  color: var(--primary-gold);
 }
 
-.feature-item h3 {
-  font-size: 1.3rem;
-  color: var(--neutral-dark);
-  margin-bottom: 0.5rem;
+.feature-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
 }
 
-.feature-item p {
+.feature-description {
   color: var(--text-secondary);
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .hero-image {
+    order: -1;
+  }
+
+  .hero-img {
+    max-width: 400px;
+  }
 }
 
 @media (max-width: 768px) {
-  .dashboard-container {
-    padding: 2rem 1rem;
+  .hero-section {
+    padding: 3rem 0;
   }
 
-  .dashboard-title {
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.05rem;
+  }
+
+  .section-title {
     font-size: 2rem;
   }
 
-  .dashboard-subtitle {
+  .section-subtitle {
     font-size: 1rem;
-  }
-
-  .stats-section {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .stat-value {
-    font-size: 2rem;
   }
 
   .features-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-img {
+    max-width: 300px;
+  }
+
+  .hero-metrics {
+    justify-content: center;
+  }
+
+  .metric-tag {
+    font-size: 0.9rem;
   }
 }
 </style>

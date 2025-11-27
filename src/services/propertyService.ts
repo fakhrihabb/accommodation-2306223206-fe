@@ -4,6 +4,7 @@ export interface Property {
   propertyID: string
   propertyName: string
   type: number
+  propertyType?: number // For add room type form endpoint
   address: string
   province: number
   description: string
