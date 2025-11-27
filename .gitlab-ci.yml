@@ -16,7 +16,6 @@ build:
     paths:
       - dist/
       - nginx.conf
-      - Dockerfile.production
     expire_in: 1 hour
 
 docker-push:
@@ -27,6 +26,16 @@ docker-push:
   before_script:
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   script:
+    - |
+      cat > Dockerfile.production <<'EOF'
+      FROM nginx:alpine
+      RUN rm -rf /usr/share/nginx/html/*
+      COPY dist /usr/share/nginx/html
+      COPY nginx.conf /etc/nginx/conf.d/default.conf
+      EXPOSE 80
+      HEALTHCHECK CMD wget -qO- http://localhost:80 || exit 1
+      CMD ["nginx", "-g", "daemon off;"]
+      EOF
     - docker build -f Dockerfile.production -t "$DOCKER_IMAGE_NAME:$IMAGE_TAG" .
     - docker push "$DOCKER_IMAGE_NAME:$IMAGE_TAG"
   only:
