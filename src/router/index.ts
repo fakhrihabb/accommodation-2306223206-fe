@@ -20,7 +20,7 @@ const router = createRouter({
       path: '/',
       name: 'dashboard',
       component: DashboardView,
-      meta: { requiresAuth: true }, // Require authentication
+      meta: { requiresAuth: false }, // Public landing page
     },
     // Property routes
     {
