@@ -28,6 +28,11 @@ const userRole = computed(() => {
   return authStore.user?.role || ''
 })
 
+// Computed property to check if user is authenticated
+const isAuthenticated = computed(() => {
+  return !!authStore.token && !!authStore.user
+})
+
 const modules = [
   { name: 'Accommodation', icon: '🏨' },
   { name: 'Insurance', icon: '🛡️' },
@@ -88,7 +93,14 @@ const handleLogout = () => {
           <RouterLink to="/statistics" class="nav-link">Statistik</RouterLink>
         </div>
 
-        <div class="profile-dropdown" @click="toggleDropdown">
+        <!-- Show auth buttons when not logged in -->
+        <div v-if="!isAuthenticated" class="auth-buttons">
+          <RouterLink to="/login" class="auth-button login-button">Masuk</RouterLink>
+          <RouterLink to="/register" class="auth-button register-button">Daftar</RouterLink>
+        </div>
+
+        <!-- Show profile dropdown when logged in -->
+        <div v-else class="profile-dropdown" @click="toggleDropdown">
           <button class="profile-button">
             <User :size="20" />
           </button>
@@ -256,6 +268,45 @@ const handleLogout = () => {
   width: 100%;
 }
 
+.auth-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.auth-button {
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1.5px solid transparent;
+}
+
+.login-button {
+  color: var(--primary-gold);
+  border-color: rgba(212, 165, 116, 0.3);
+  background: rgba(212, 165, 116, 0.05);
+}
+
+.login-button:hover {
+  background: rgba(212, 165, 116, 0.15);
+  border-color: rgba(212, 165, 116, 0.5);
+}
+
+.register-button {
+  color: var(--text-primary);
+  background: linear-gradient(135deg, #d4a574 0%, #c9a961 100%);
+  border-color: transparent;
+}
+
+.register-button:hover {
+  background: linear-gradient(135deg, #c9a961 0%, #d4a574 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
+}
+
 .profile-dropdown {
   position: relative;
 }
@@ -378,6 +429,15 @@ const handleLogout = () => {
 
   .logo-subtitle {
     font-size: 0.65rem;
+  }
+
+  .auth-buttons {
+    gap: 0.5rem;
+  }
+
+  .auth-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
   }
 }
 </style>
