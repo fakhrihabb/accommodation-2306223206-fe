@@ -1,14 +1,21 @@
 # Build stage
 FROM node:20 AS build-stage
 WORKDIR /app
+
+# Copy package files and install dependencies
 COPY package*.json ./
+RUN npm ci --legacy-peer-deps
+
+# Copy source code
+COPY . .
+
+# Set build arguments and environment variables
 ARG VITE_API_URL
 ENV VITE_API_URL=$VITE_API_URL
-RUN npm ci
-COPY . .
-# Pastikan variabel API tersimpan untuk build, sesuaikan dengan attr di env kalian
-RUN echo "VITE_API_URL=$VITE_API_URL" > .env.production
-RUN npm run build
+
+# Create .env.production file and build
+RUN echo "VITE_API_URL=$VITE_API_URL" > .env.production && \
+    npm run build
 # Production stage
 FROM nginx:alpine AS production-stage
 RUN rm -rf /usr/share/nginx/html/*
