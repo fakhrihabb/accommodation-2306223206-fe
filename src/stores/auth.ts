@@ -63,7 +63,7 @@ export const useAuthStore = defineStore('auth', () => {
    * Used in development (localhost)
    */
   function getTokenFromLocalStorage(): string | null {
-    return localStorage.getItem('jwt_token');
+    return localStorage.getItem('jwt_token') || null;
   }
 
   /**
