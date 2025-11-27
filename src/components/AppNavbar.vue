@@ -11,7 +11,11 @@ const showModuleModal = ref(false)
 
 // Initialize authentication on component mount
 onMounted(() => {
-  authStore.validateToken()
+  // Only validate if token exists
+  authStore.initializeToken()
+  if (authStore.token) {
+    authStore.validateToken()
+  }
 })
 
 // Computed property for displaying user name
