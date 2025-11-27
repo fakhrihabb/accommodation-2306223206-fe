@@ -77,6 +77,8 @@ const removeRoomType = (index: number) => {
 
 const updateRoomList = (roomTypeIndex: number) => {
   const roomType = formData.value.listRoomType[roomTypeIndex]
+  if (!roomType) return
+
   const unitCount = roomType.unitCount
   const floor = roomType.floor
 

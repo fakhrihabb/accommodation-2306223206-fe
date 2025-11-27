@@ -201,7 +201,7 @@ onMounted(() => {
 
           <div class="info-item">
             <label>Tanggal Booking</label>
-            <p>{{ formatDate(booking.bookingDate) }}</p>
+            <p>{{ formatDate(booking.createdDate) }}</p>
           </div>
 
           <div class="info-item">
@@ -238,7 +238,7 @@ onMounted(() => {
 
           <div class="info-item">
             <label>Total Hari</label>
-            <p>{{ booking.totalDay }} hari</p>
+            <p>{{ booking.totalDays }} hari</p>
           </div>
 
           <div class="info-item">
@@ -248,7 +248,7 @@ onMounted(() => {
 
           <div class="info-item">
             <label>Sarapan</label>
-            <p>{{ booking.breakfast ? 'Ya' : 'Tidak' }}</p>
+            <p>{{ booking.isBreakfast ? 'Ya' : 'Tidak' }}</p>
           </div>
 
           <div class="info-item">

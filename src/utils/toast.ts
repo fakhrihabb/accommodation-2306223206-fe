@@ -1,7 +1,7 @@
-import { useToast, type PluginOptions } from 'vue-toastification'
+import { useToast, type PluginOptions, POSITION } from 'vue-toastification'
 
 export const toastOptions: PluginOptions = {
-  position: 'top-right',
+  position: POSITION.TOP_RIGHT,
   timeout: 3000,
   closeOnClick: true,
   pauseOnFocusLoss: true,

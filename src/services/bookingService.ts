@@ -54,6 +54,7 @@ export interface UpdateBookingData {
 
 export interface BookingStatusData {
   bookingID: string
+  propertyID?: string
 }
 
 const bookingService = {
