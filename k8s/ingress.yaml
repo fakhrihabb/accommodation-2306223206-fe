@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-    - host: fe.apap.hafizmuh.site
+    - host: 2306223206-fe.hafizmuh.site
       http:
         paths:
           - path: /
