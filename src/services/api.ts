@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const API_BASE_URL = 'http://localhost:8080'
-const API_URL = 'http://localhost:8080/api'
+// Use environment variable with fallback to localhost for development
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080'
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -11,7 +11,7 @@ const apiClient = axios.create({
 })
 
 const apiClientApi = axios.create({
-  baseURL: API_URL,
+  baseURL: `${API_BASE_URL}/api`,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -32,7 +32,7 @@ const errorInterceptor = (error: any) => {
     console.error('API No Response:', {
       url: error.config?.url,
       method: error.config?.method,
-      message: 'No response from server. Is the backend running on localhost:8080?',
+      message: `No response from server. Is the backend running on ${API_BASE_URL}?`,
     })
   } else {
     // Something else happened
@@ -44,4 +44,4 @@ const errorInterceptor = (error: any) => {
 apiClient.interceptors.response.use((response) => response, errorInterceptor)
 apiClientApi.interceptors.response.use((response) => response, errorInterceptor)
 
-export { apiClient, apiClientApi, API_BASE_URL, API_URL }
+export { apiClient, apiClientApi, API_BASE_URL }
