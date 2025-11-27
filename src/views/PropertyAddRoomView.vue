@@ -33,8 +33,11 @@ const formData = ref<AddRoomTypeData>({
 })
 
 const roomTypeOptionsForType = computed(() => {
-  if (!property.value?.type) return []
-  return roomTypeOptions[property.value.type as keyof typeof roomTypeOptions] || []
+  // Backend returns 'propertyType' field, not 'type'
+  const type = property.value?.propertyType || property.value?.type
+  if (!type) return []
+  const propertyType = Number(type)
+  return roomTypeOptions[propertyType as keyof typeof roomTypeOptions] || []
 })
 
 const fetchPropertyData = async () => {
@@ -298,6 +301,8 @@ onMounted(() => {
 
 <style scoped>
 .addroom-container {
+  background: var(--bg-dark);
+  min-height: calc(100vh - 80px);
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
@@ -309,7 +314,7 @@ onMounted(() => {
 
 .addroom-header h1 {
   font-size: 2rem;
-  color: var(--neutral-dark);
+  color: var(--text-primary);
   margin-top: 1rem;
 }
 
@@ -318,8 +323,9 @@ onMounted(() => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: white;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   color: var(--text-primary);
   cursor: pointer;
@@ -327,7 +333,7 @@ onMounted(() => {
 }
 
 .btn-back:hover {
-  background: #f8f9fa;
+  background: rgba(212, 165, 116, 0.1);
 }
 
 .loading {
@@ -362,12 +368,12 @@ onMounted(() => {
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .info-card h2 {
   font-size: 1.5rem;
-  color: var(--primary-blue);
+  color: var(--primary-gold);
   margin-bottom: 1rem;
 }
 
@@ -383,10 +389,11 @@ onMounted(() => {
 }
 
 .addroom-form {
-  background: white;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .form-section {
@@ -402,7 +409,7 @@ onMounted(() => {
 
 .section-header h2 {
   font-size: 1.5rem;
-  color: var(--primary-blue);
+  color: var(--primary-gold);
 }
 
 .btn-add-type {
@@ -447,7 +454,9 @@ onMounted(() => {
 .form-textarea {
   width: 100%;
   padding: 0.75rem 1rem;
-  border: 1px solid #e0e0e0;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
   border-radius: 8px;
   font-size: 1rem;
   transition: all 0.3s ease;
@@ -457,8 +466,8 @@ onMounted(() => {
 .form-select:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: var(--primary-blue);
-  box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.1);
 }
 
 .form-textarea {
@@ -467,7 +476,7 @@ onMounted(() => {
 }
 
 .room-type-form {
-  background: #f8f9fa;
+  background: rgba(212, 165, 116, 0.1);
   border-radius: 8px;
   padding: 1.5rem;
   margin-bottom: 1rem;
@@ -482,7 +491,7 @@ onMounted(() => {
 
 .room-type-header h3 {
   font-size: 1.2rem;
-  color: var(--neutral-dark);
+  color: var(--text-primary);
 }
 
 .btn-remove {
@@ -543,6 +552,8 @@ onMounted(() => {
 
 @media (max-width: 768px) {
   .addroom-container {
+  background: var(--bg-dark);
+  min-height: calc(100vh - 80px);
     padding: 1rem;
   }
 
