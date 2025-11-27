@@ -55,7 +55,7 @@ export const useAuthStore = defineStore('auth', () => {
    */
   function getTokenFromCookie(): string | null {
     const match = document.cookie.match(new RegExp('(^| )jwt_token=([^;]+)'));
-    return match ? match[2] : null;
+    return match ? (match[2] || null) : null;
   }
 
   /**
