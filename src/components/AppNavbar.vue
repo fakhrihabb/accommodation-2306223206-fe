@@ -1,7 +1,21 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import { Building, User, LogOut, Grid3x3 } from 'lucide-vue-next'
+import {
+  Building,
+  User,
+  LogOut,
+  Grid3x3,
+  Home,
+  Shield,
+  Plane,
+  Car,
+  Backpack,
+  MessageCircle,
+  Star,
+  Wallet,
+  FileText
+} from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/auth'
 
 const router = useRouter()
@@ -34,15 +48,15 @@ const isAuthenticated = computed(() => {
 })
 
 const modules = [
-  { name: 'Accommodation', icon: '🏨' },
-  { name: 'Insurance', icon: '🛡️' },
-  { name: 'Flight', icon: '✈️' },
-  { name: 'Vehicle Rental', icon: '🚗' },
-  { name: 'Tour Package', icon: '🎒' },
-  { name: 'Support', icon: '💬' },
-  { name: 'Loyalty', icon: '⭐' },
-  { name: 'Top-Up', icon: '💰' },
-  { name: 'Bill', icon: '📄' }
+  { name: 'Accommodation', icon: Home },
+  { name: 'Insurance', icon: Shield },
+  { name: 'Flight', icon: Plane },
+  { name: 'Vehicle Rental', icon: Car },
+  { name: 'Tour Package', icon: Backpack },
+  { name: 'Support', icon: MessageCircle },
+  { name: 'Loyalty', icon: Star },
+  { name: 'Top-Up', icon: Wallet },
+  { name: 'Bill', icon: FileText }
 ]
 
 const toggleDropdown = () => {
@@ -142,7 +156,7 @@ const handleLogout = () => {
           <div class="modal-body">
             <div class="module-grid">
               <div v-for="module in modules" :key="module.name" class="module-card">
-                <span class="module-icon">{{ module.icon }}</span>
+                <component :is="module.icon" class="module-icon" :size="32" :stroke-width="1.5" />
                 <span class="module-name">{{ module.name }}</span>
               </div>
             </div>
@@ -462,10 +476,8 @@ const handleLogout = () => {
   background: #1e1e1e;
   border-radius: 16px;
   padding: 2rem;
-  max-width: 600px;
+  max-width: 650px;
   width: 90%;
-  max-height: 80vh;
-  overflow-y: auto;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
   border: 1px solid #3a3a3a;
 }
@@ -563,12 +575,12 @@ const handleLogout = () => {
 }
 
 .module-icon {
-  font-size: 2.5rem;
+  color: var(--primary-gold);
   transition: transform 0.3s ease;
 }
 
 .module-card:hover .module-icon {
-  transform: scale(1.2);
+  transform: scale(1.15);
 }
 
 .module-name {
