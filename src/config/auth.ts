@@ -47,15 +47,19 @@ const AUTH_CONFIG: AuthConfig = {
   apiUrl: import.meta.env.VITE_API_URL || 'http://localhost:8080',
 };
 
-// Log configuration in development for debugging
-if (import.meta.env.DEV) {
-  console.log('[Auth Config] Loaded configuration:', {
-    mode: import.meta.env.MODE,
-    useCookieAuth: AUTH_CONFIG.useCookieAuth,
-    authDomain: AUTH_CONFIG.authDomain,
-    apiUrl: AUTH_CONFIG.apiUrl,
-    cookieDomain: AUTH_CONFIG.useCookieAuth ? AUTH_CONFIG.cookieDomain : 'N/A (using localStorage)',
-  });
-}
+// Log configuration for debugging (always log, even in production)
+console.log('[Auth Config] Loaded configuration:', {
+  mode: import.meta.env.MODE,
+  useCookieAuth: AUTH_CONFIG.useCookieAuth,
+  authDomain: AUTH_CONFIG.authDomain,
+  apiUrl: AUTH_CONFIG.apiUrl,
+  cookieDomain: AUTH_CONFIG.useCookieAuth ? AUTH_CONFIG.cookieDomain : 'N/A (using localStorage)',
+  rawEnvVars: {
+    VITE_USE_COOKIE_AUTH: import.meta.env.VITE_USE_COOKIE_AUTH,
+    VITE_COOKIE_DOMAIN: import.meta.env.VITE_COOKIE_DOMAIN,
+    VITE_AUTH_DOMAIN: import.meta.env.VITE_AUTH_DOMAIN,
+    VITE_API_URL: import.meta.env.VITE_API_URL,
+  }
+});
 
 export default AUTH_CONFIG;
