@@ -11,6 +11,11 @@ build:
   image: node:20
   script:
     - npm ci
+    - echo "Building with environment variables:"
+    - echo "VITE_API_URL=${VITE_API_URL}"
+    - echo "VITE_USE_COOKIE_AUTH=${VITE_USE_COOKIE_AUTH}"
+    - echo "VITE_COOKIE_DOMAIN=${VITE_COOKIE_DOMAIN}"
+    - echo "VITE_AUTH_DOMAIN=${VITE_AUTH_DOMAIN}"
     - |
       VITE_API_URL=$VITE_API_URL \
       VITE_USE_COOKIE_AUTH=$VITE_USE_COOKIE_AUTH \
