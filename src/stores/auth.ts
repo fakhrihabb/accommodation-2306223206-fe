@@ -192,7 +192,7 @@ export const useAuthStore = defineStore('auth', () => {
         const userData = response.data.data;
         // Map backend response to user object
         user.value = {
-          id: userData.userId,
+          userId: userData.userId,
           username: userData.username,
           name: userData.username, // Use username as name if name field doesn't exist
           email: userData.email,
