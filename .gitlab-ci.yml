@@ -45,6 +45,7 @@ docker-push:
     - docker push "$DOCKER_IMAGE_NAME:$IMAGE_TAG"
   only:
     - main
+    - feat/landing-page
 
 deploy:
   stage: deploy
@@ -66,3 +67,4 @@ deploy:
     - ssh $EC2_USER@$EC2_HOST "sudo KUBECONFIG=/etc/rancher/k3s/k3s.yaml kubectl apply -f ~/app/k8s/ingress.yaml"
   only:
     - main
+    - feat/landing-page
