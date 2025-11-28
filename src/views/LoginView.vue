@@ -1,80 +1,64 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
+  <div class="auth-container">
+    <div class="auth-card">
       <!-- Header -->
-      <div>
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Sign in to your account
-        </h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-          Welcome to the accommodation booking system
-        </p>
+      <div class="auth-header">
+        <h2 class="auth-title">Masuk ke Akun Anda</h2>
+        <p class="auth-subtitle">Selamat datang di sistem pemesanan akomodasi</p>
       </div>
 
       <!-- Login Form -->
-      <form class="mt-8 space-y-6" @submit.prevent="handleLogin">
+      <form class="auth-form" @submit.prevent="handleLogin">
         <!-- Error Message -->
-        <div v-if="errorMessage" class="rounded-md bg-red-50 p-4">
-          <div class="flex">
-            <div class="ml-3">
-              <h3 class="text-sm font-medium text-red-800">
-                {{ errorMessage }}
-              </h3>
-            </div>
-          </div>
+        <div v-if="errorMessage" class="error-message">
+          <p>{{ errorMessage }}</p>
         </div>
 
         <!-- Form Fields -->
-        <div class="rounded-md shadow-sm -space-y-px">
-          <div>
-            <label for="username" class="sr-only">Username</label>
-            <input
-              id="username"
-              v-model="username"
-              name="username"
-              type="text"
-              autocomplete="username"
-              required
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Username"
-              :disabled="isLoading"
-            />
-          </div>
-          <div>
-            <label for="password" class="sr-only">Password</label>
-            <input
-              id="password"
-              v-model="password"
-              name="password"
-              type="password"
-              autocomplete="current-password"
-              required
-              class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-              placeholder="Password"
-              :disabled="isLoading"
-            />
-          </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            v-model="username"
+            name="username"
+            type="text"
+            autocomplete="username"
+            required
+            class="form-input"
+            placeholder="Masukkan username"
+            :disabled="isLoading"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            v-model="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+            class="form-input"
+            placeholder="Masukkan password"
+            :disabled="isLoading"
+          />
         </div>
 
         <!-- Submit Button -->
-        <div>
-          <button
-            type="submit"
-            :disabled="isLoading"
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <span v-if="isLoading">Logging in...</span>
-            <span v-else>Sign in</span>
-          </button>
-        </div>
+        <button
+          type="submit"
+          :disabled="isLoading"
+          class="submit-button"
+        >
+          <span v-if="isLoading">Memproses...</span>
+          <span v-else>Masuk</span>
+        </button>
 
         <!-- Register Link -->
-        <div class="text-center">
-          <router-link
-            to="/register"
-            class="font-medium text-indigo-600 hover:text-indigo-500"
-          >
-            Don't have an account? Register here
+        <div class="auth-footer">
+          <router-link to="/register" class="auth-link">
+            Belum punya akun? Daftar di sini
           </router-link>
         </div>
       </form>
@@ -87,7 +71,6 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { login } from '@/services/authService'
 import { useAuthStore } from '@/stores/auth'
-import AUTH_CONFIG from '@/config/auth'
 
 const route = useRoute()
 const authStore = useAuthStore()
@@ -98,56 +81,188 @@ const password = ref('')
 const isLoading = ref(false)
 const errorMessage = ref('')
 
-/**
- * Handle login form submission
- *
- * Flow:
- * 1. Validate form fields
- * 2. Call backend /api/auth/login
- * 3. Store JWT token in cookie/localStorage
- * 4. Redirect back to originating service (or default page)
- */
 async function handleLogin() {
-  // Reset error
   errorMessage.value = ''
 
-  // Validate fields
   if (!username.value || !password.value) {
-    errorMessage.value = 'Please enter username and password'
+    errorMessage.value = 'Mohon masukkan username dan password'
     return
   }
 
   isLoading.value = true
 
   try {
-    // Call login API
     const response = await login({
       username: username.value,
       password: password.value,
     })
 
-    // Store token (production: cookie, development: localStorage)
     authStore.setToken(response.data.token)
 
-    console.log('[Login] Login successful:', response.data)
+    if (import.meta.env.DEV) {
+      console.log('[Login] Login successful:', response.data)
+    }
 
-    // Get redirect URL from query parameter
     const redirectUrl = (route.query.redirect as string) || window.location.origin
 
-    console.log('[Login] Redirecting to:', redirectUrl)
+    if (import.meta.env.DEV) {
+      console.log('[Login] Redirecting to:', redirectUrl)
+    }
 
-    // Redirect back to originating service
-    // In production (cookie mode): Cookie is already set, just redirect
-    // In development (localStorage mode): Token is in localStorage, redirect will work
     window.location.href = redirectUrl
   } catch (error: any) {
     console.error('[Login] Login failed:', error)
-    errorMessage.value = error.message || 'Login failed. Please try again.'
+    errorMessage.value = error.response?.data?.message || 'Login gagal. Silakan coba lagi.'
     isLoading.value = false
   }
 }
 </script>
 
 <style scoped>
-/* Additional styles if needed */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: var(--bg-dark);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #d4a574 0%, #c9a961 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.auth-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.error-message {
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-input {
+  padding: 0.75rem 1rem;
+  background: var(--bg-dark);
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--primary-gold);
+  background: rgba(212, 165, 116, 0.05);
+}
+
+.form-input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.submit-button {
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, #d4a574 0%, #c9a961 100%);
+  border: none;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #c9a961 0%, #d4a574 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 165, 116, 0.3);
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.auth-link {
+  color: var(--primary-gold);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.3s ease;
+}
+
+.auth-link:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.85rem;
+  }
+}
 </style>

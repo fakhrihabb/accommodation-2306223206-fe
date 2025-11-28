@@ -1,158 +1,125 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md w-full space-y-8">
+  <div class="auth-container">
+    <div class="auth-card">
       <!-- Header -->
-      <div>
-        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Create your account
-        </h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-          Register to start booking accommodations
-        </p>
+      <div class="auth-header">
+        <h2 class="auth-title">Buat Akun Baru</h2>
+        <p class="auth-subtitle">Daftar untuk mulai memesan akomodasi</p>
       </div>
 
       <!-- Register Form -->
-      <form class="mt-8 space-y-6" @submit.prevent="handleRegister">
+      <form class="auth-form" @submit.prevent="handleRegister">
         <!-- Error Message -->
-        <div v-if="errorMessage" class="rounded-md bg-red-50 p-4">
-          <div class="flex">
-            <div class="ml-3">
-              <h3 class="text-sm font-medium text-red-800">
-                {{ errorMessage }}
-              </h3>
-            </div>
-          </div>
+        <div v-if="errorMessage" class="error-message">
+          <p>{{ errorMessage }}</p>
         </div>
 
         <!-- Form Fields -->
-        <div class="space-y-4">
-          <!-- Username -->
-          <div>
-            <label for="username" class="block text-sm font-medium text-gray-700">
-              Username
-            </label>
-            <input
-              id="username"
-              v-model="formData.username"
-              type="text"
-              required
-              class="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              :disabled="isLoading"
-            />
-          </div>
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input
+            id="username"
+            v-model="formData.username"
+            type="text"
+            required
+            class="form-input"
+            placeholder="Masukkan username"
+            :disabled="isLoading"
+          />
+        </div>
 
-          <!-- Full Name -->
-          <div>
-            <label for="name" class="block text-sm font-medium text-gray-700">
-              Full Name
-            </label>
-            <input
-              id="name"
-              v-model="formData.name"
-              type="text"
-              required
-              class="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              :disabled="isLoading"
-            />
-          </div>
+        <div class="form-group">
+          <label for="name">Nama Lengkap</label>
+          <input
+            id="name"
+            v-model="formData.name"
+            type="text"
+            required
+            class="form-input"
+            placeholder="Masukkan nama lengkap"
+            :disabled="isLoading"
+          />
+        </div>
 
-          <!-- Email -->
-          <div>
-            <label for="email" class="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              id="email"
-              v-model="formData.email"
-              type="email"
-              required
-              class="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              :disabled="isLoading"
-            />
-          </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            v-model="formData.email"
+            type="email"
+            required
+            class="form-input"
+            placeholder="Masukkan email"
+            :disabled="isLoading"
+          />
+        </div>
 
-          <!-- Password -->
-          <div>
-            <label for="password" class="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              id="password"
-              v-model="formData.password"
-              type="password"
-              required
-              minlength="6"
-              class="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              :disabled="isLoading"
-            />
-            <p class="mt-1 text-xs text-gray-500">Minimum 6 characters</p>
-          </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            v-model="formData.password"
+            type="password"
+            required
+            minlength="6"
+            class="form-input"
+            placeholder="Masukkan password (min. 6 karakter)"
+            :disabled="isLoading"
+          />
+          <span class="form-hint">Minimal 6 karakter</span>
+        </div>
 
-          <!-- Gender -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">
-              Gender
+        <div class="form-group">
+          <label>Jenis Kelamin</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input
+                v-model="formData.gender"
+                type="radio"
+                :value="true"
+                :disabled="isLoading"
+              />
+              <span>Laki-laki</span>
             </label>
-            <div class="flex space-x-4">
-              <label class="inline-flex items-center">
-                <input
-                  v-model="formData.gender"
-                  type="radio"
-                  :value="true"
-                  class="form-radio h-4 w-4 text-indigo-600"
-                  :disabled="isLoading"
-                />
-                <span class="ml-2">Male</span>
-              </label>
-              <label class="inline-flex items-center">
-                <input
-                  v-model="formData.gender"
-                  type="radio"
-                  :value="false"
-                  class="form-radio h-4 w-4 text-indigo-600"
-                  :disabled="isLoading"
-                />
-                <span class="ml-2">Female</span>
-              </label>
-            </div>
+            <label class="radio-option">
+              <input
+                v-model="formData.gender"
+                type="radio"
+                :value="false"
+                :disabled="isLoading"
+              />
+              <span>Perempuan</span>
+            </label>
           </div>
+        </div>
 
-          <!-- Role -->
-          <div>
-            <label for="role" class="block text-sm font-medium text-gray-700">
-              Register as
-            </label>
-            <select
-              id="role"
-              v-model="formData.role"
-              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              :disabled="isLoading"
-            >
-              <option value="CUSTOMER">Customer</option>
-              <option value="ACCOMMODATION_OWNER">Accommodation Owner</option>
-            </select>
-          </div>
+        <div class="form-group">
+          <label for="role">Daftar Sebagai</label>
+          <select
+            id="role"
+            v-model="formData.role"
+            class="form-select"
+            :disabled="isLoading"
+          >
+            <option value="CUSTOMER">Pelanggan</option>
+            <option value="ACCOMMODATION_OWNER">Pemilik Akomodasi</option>
+          </select>
         </div>
 
         <!-- Submit Button -->
-        <div>
-          <button
-            type="submit"
-            :disabled="isLoading"
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <span v-if="isLoading">Creating account...</span>
-            <span v-else>Create account</span>
-          </button>
-        </div>
+        <button
+          type="submit"
+          :disabled="isLoading"
+          class="submit-button"
+        >
+          <span v-if="isLoading">Membuat akun...</span>
+          <span v-else>Buat Akun</span>
+        </button>
 
         <!-- Login Link -->
-        <div class="text-center">
-          <router-link
-            to="/login"
-            class="font-medium text-indigo-600 hover:text-indigo-500"
-          >
-            Already have an account? Sign in
+        <div class="auth-footer">
+          <router-link to="/login" class="auth-link">
+            Sudah punya akun? Masuk di sini
           </router-link>
         </div>
       </form>
@@ -169,69 +136,238 @@ import { useAuthStore } from '@/stores/auth'
 const route = useRoute()
 const authStore = useAuthStore()
 
-// Form state
 const formData = reactive({
   username: '',
   name: '',
   email: '',
   password: '',
-  gender: true, // Default to male
-  role: 'CUSTOMER', // Default to customer
+  gender: true,
+  role: 'CUSTOMER',
 })
 
 const isLoading = ref(false)
 const errorMessage = ref('')
 
-/**
- * Handle registration form submission
- *
- * Flow:
- * 1. Validate form fields
- * 2. Call backend /api/auth/register
- * 3. Store JWT token in cookie/localStorage
- * 4. Redirect back to originating service (or default page)
- */
 async function handleRegister() {
-  // Reset error
   errorMessage.value = ''
 
-  // Validate fields
   if (!formData.username || !formData.name || !formData.email || !formData.password) {
-    errorMessage.value = 'Please fill in all fields'
+    errorMessage.value = 'Mohon lengkapi semua field'
     return
   }
 
   if (formData.password.length < 6) {
-    errorMessage.value = 'Password must be at least 6 characters'
+    errorMessage.value = 'Password harus minimal 6 karakter'
     return
   }
 
   isLoading.value = true
 
   try {
-    // Call register API
     const response = await register(formData)
-
-    // Store token (production: cookie, development: localStorage)
     authStore.setToken(response.data.token)
 
-    console.log('[Register] Registration successful:', response.data)
+    if (import.meta.env.DEV) {
+      console.log('[Register] Registration successful:', response.data)
+    }
 
-    // Get redirect URL from query parameter
     const redirectUrl = (route.query.redirect as string) || window.location.origin
 
-    console.log('[Register] Redirecting to:', redirectUrl)
+    if (import.meta.env.DEV) {
+      console.log('[Register] Redirecting to:', redirectUrl)
+    }
 
-    // Redirect back to originating service
     window.location.href = redirectUrl
   } catch (error: any) {
     console.error('[Register] Registration failed:', error)
-    errorMessage.value = error.message || 'Registration failed. Please try again.'
+    errorMessage.value = error.response?.data?.message || 'Registrasi gagal. Silakan coba lagi.'
     isLoading.value = false
   }
 }
 </script>
 
 <style scoped>
-/* Additional styles if needed */
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: var(--bg-dark);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #d4a574 0%, #c9a961 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.auth-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.error-message {
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 8px;
+  color: #ff6b6b;
+  font-size: 0.9rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.form-input,
+.form-select {
+  padding: 0.75rem 1rem;
+  background: var(--bg-dark);
+  border: 1.5px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--primary-gold);
+  background: rgba(212, 165, 116, 0.05);
+}
+
+.form-input:disabled,
+.form-select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-input::placeholder {
+  color: var(--text-secondary);
+}
+
+.form-hint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.radio-group {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+}
+
+.radio-option input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--primary-gold);
+  cursor: pointer;
+}
+
+.radio-option input[type="radio"]:disabled {
+  cursor: not-allowed;
+}
+
+.submit-button {
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(135deg, #d4a574 0%, #c9a961 100%);
+  border: none;
+  border-radius: 8px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: linear-gradient(135deg, #c9a961 0%, #d4a574 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(212, 165, 116, 0.3);
+}
+
+.submit-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.auth-link {
+  color: var(--primary-gold);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: opacity 0.3s ease;
+}
+
+.auth-link:hover {
+  opacity: 0.7;
+}
+
+@media (max-width: 480px) {
+  .auth-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .auth-title {
+    font-size: 1.5rem;
+  }
+
+  .auth-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .auth-form {
+    gap: 1rem;
+  }
+}
 </style>
