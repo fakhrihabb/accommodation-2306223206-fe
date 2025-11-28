@@ -189,7 +189,15 @@ export const useAuthStore = defineStore('auth', () => {
       );
 
       if (response.data.status === 200 && response.data.data) {
-        user.value = response.data.data;
+        const userData = response.data.data;
+        // Map backend response to user object
+        user.value = {
+          id: userData.userId,
+          username: userData.username,
+          name: userData.username, // Use username as name if name field doesn't exist
+          email: userData.email,
+          role: userData.role,
+        };
 
         if (import.meta.env.DEV) {
           console.log('[Auth Store] Token validated successfully. User:', user.value);
