@@ -11,7 +11,12 @@ build:
   image: node:20
   script:
     - npm ci
-    - VITE_API_URL=$VITE_API_URL npm run build
+    - |
+      VITE_API_URL=$VITE_API_URL \
+      VITE_USE_COOKIE_AUTH=$VITE_USE_COOKIE_AUTH \
+      VITE_COOKIE_DOMAIN=$VITE_COOKIE_DOMAIN \
+      VITE_AUTH_DOMAIN=$VITE_AUTH_DOMAIN \
+      npm run build
   artifacts:
     paths:
       - dist/
