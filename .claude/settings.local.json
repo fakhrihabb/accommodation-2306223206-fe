@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(cat:*)",
+      "Bash(\"c:\\Classes\\Sem5\\APAP\\ti1\\accommodation-2306223206-fe\\src\\views\\StatisticsView.vue\")",
+      "Bash(\"c:\\Classes\\Sem5\\APAP\\ti1\\accommodation-2306223206-fe\\src\\views\\BookingDetailView.vue\")",
+      "Bash(\"c:\\Classes\\Sem5\\APAP\\ti1\\accommodation-2306223206-fe\\src\\views\\PropertyUpdateView.vue\")",
+      "Bash(\"c:\\Classes\\Sem5\\APAP\\ti1\\accommodation-2306223206-fe\\src\\views\\PropertyAddRoomView.vue\")",
+      "Bash(\"c:\\Classes\\Sem5\\APAP\\ti1\\accommodation-2306223206-fe\\src\\views\\BookingCreateView.vue\")",
+      "Bash(\"c:\\Classes\\Sem5\\APAP\\ti1\\accommodation-2306223206-fe\\src\\views\\BookingUpdateView.vue\")",
+      "Bash(npm run dev:*)",
+      "Bash(for file in BookingCreateView.vue BookingDetailView.vue BookingUpdateView.vue PropertyAddRoomView.vue PropertyUpdateView.vue)",
+      "Bash(do sed -i 's/background: white;/background: var(--bg-card);/g' \"$file\")",
+      "Bash(done)",
+      "Bash(do sed -i 's/border: 1px solid #e0e0e0;/border: 1px solid var(--border-color);/g' \"$file\")",
+      "Bash(do sed -i 's/background: #f8f9fa;/background: rgba(212, 165, 116, 0.1);/g' \"$file\")",
+      "Bash(do sed -i 's/background-color: #f8f9fa;/background-color: rgba(212, 165, 116, 0.05);/g' \"$file\")",
+      "Bash(do sed -i 's/border-color: var(--primary-blue);/border-color: var(--primary-gold);/g' \"$file\")",
+      "Bash(do sed -i 's/\\(\\..*-container {\\)/\\1\\n  background: var(--bg-dark);\\n  min-height: calc(100vh - 80px);/g' \"$file\")",
+      "Bash(do sed -i '/background: var(--bg-card);/a\\  border: 1px solid var(--border-color);' \"$file\")"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -1,0 +1,674 @@
+{
+  "info": {
+    "name": "TI-APAP",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Beranda",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/",
+          "protocol": "",
+          "host": [
+            "{{base}}/"
+          ],
+          "path": [],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "CREATE Property",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property/create",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property",
+            "create"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"propertyName\": \"Apartemen Ujung Tanduk\",\n  \"type\": 3,\n  \"province\": 12,\n  \"address\": \"Jl. Jawa No. 9, Medan 20231\",\n  \"description\": \"Beautiful beachfront apartment with modern amenities.\",\n  \"ownerID\": \"123e4567-e89b-12d3-a456-426614174000\",\n  \"ownerName\": \"Jack Ma Si\",\n  \"listRoomType\": [\n    {\n      \"name\": \"Studio\",\n      \"description\": \"Little room\",\n      \"price\": 100000,\n      \"capacity\": 2,\n      \"facility\": \"AC, WiFi\",\n      \"floor\": 2,\n      \"unitCount\": 3,\n      \"listRoom\": [\n        {\n          \"name\": \"Studio 201\",\n          \"availabilityStatus\": 1\n        },\n        {\n          \"name\": \"Studio 202\",\n          \"availabilityStatus\": 1\n        },\n        {\n          \"name\": \"Studio 203\",\n          \"availabilityStatus\": 1\n        }\n      ]\n    },\n    {\n      \"name\": \"1BR\",\n      \"description\": \"Comfortable standard room\",\n      \"price\": 250000,\n      \"capacity\": 1,\n      \"facility\": \"AC, WiFi\",\n      \"floor\": 3,\n      \"unitCount\": 2,\n      \"listRoom\": [\n        {\n          \"name\": \"1BR 301\",\n          \"availabilityStatus\": 1\n        },\n        {\n          \"name\": \"1BR 302\",\n          \"availabilityStatus\": 1\n        }\n      ]\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "FORM CREATE Properties",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property/create",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property",
+            "create"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "READ All Property",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "READ Detail Property",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property/{{property-id}}",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property",
+            "{{property-id}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "FORM UPDATE Property",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property/update/{{property-id}}",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property",
+            "update",
+            "{{property-id}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "UPDATE Property",
+      "event": [],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property/update",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property",
+            "update"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"propertyID\": \"{{property-id}}\",\n  \"propertyName\": \"Apartemen Ujung Tanduk\",\n  \"address\": \"Jl. Jawa No. 9, Medan 20231\",\n  \"description\": \"Beautiful beachfront apartment with modest amenities.\",\n  \"listRoomType\": [\n    {\n      \"roomTypeID\": \"001–Studio–2\",\n      \"name\": \"Studio\",\n      \"capacity\": 2,\n      \"price\": 100000,\n      \"description\": \"Little room\",\n      \"facility\": \"AC, WiFi\",\n      \"floor\": 2\n      },\n    {\n      \"roomTypeID\": \"001–1BR–3\",\n      \"name\": \"1BR\",\n      \"capacity\": 1,\n      \"price\": 250000,\n      \"description\": \"Comfortable standard room\",\n      \"facility\": \"AC, WiFi\",\n      \"floor\": 3\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "GET DELETE Property",
+      "event": [],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property/delete/HOT-4000-001",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property",
+            "delete",
+            "HOT-4000-001"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "FORM ADD Room Type",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property/updateroom/APT-4000-001",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property",
+            "updateroom",
+            "APT-4000-001"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "ADD Room Type",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property/updateroom",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property",
+            "updateroom"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"propertyID\": \"APT-4000-001\",\n  \"listRoomType\": [\n    {\n      \"name\": \"2BR\",\n      \"description\": \"Comfortable standard BR\",\n      \"price\": 250000,\n      \"capacity\": 1,\n      \"facility\": \"AC, WiFi\",\n      \"floor\": 4,\n      \"unitCount\": 2,\n      \"listRoom\": [\n        {\n          \"name\": \"2BR 401\",\n          \"availabilityStatus\": 1\n        },\n        {\n          \"name\": \"2BR 402\",\n          \"availabilityStatus\": 1\n        }\n      ]\n    },\n    {\n      \"name\": \"3BR\",\n      \"description\": \"Comfortable standard BR\",\n      \"price\": 250000,\n      \"capacity\": 1,\n      \"facility\": \"AC, WiFi\",\n      \"floor\": 5,\n      \"unitCount\": 2,\n      \"listRoom\": [\n        {\n          \"name\": \"3BR 501\",\n          \"availabilityStatus\": 1\n        },\n        {\n          \"name\": \"3BR 502\",\n          \"availabilityStatus\": 1\n        }\n      ]\n    }\n  ]\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "CREATE Room Maintenance",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base_api}}/property/maintenance/add",
+          "protocol": "",
+          "host": [
+            "{{base_api}}"
+          ],
+          "path": [
+            "property",
+            "maintenance",
+            "add"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roomID\": \"APT-4000-001-201\",\n  \"propertyID\": \"APT-4000-001\",\n  \"maintenanceStart\": \"2025-11-28T09:00:00\",\n  \"maintenanceEnd\": \"2025-11-29T17:00:00\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "READ All Bookings",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "READ Detail Booking",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings/{{booking-id}}",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings",
+            "{{booking-id}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "FORM CREATE Booking",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings/create/{{room-id}}",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings",
+            "create",
+            "{{room-id}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "CREATE Booking",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings/create",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings",
+            "create"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"roomID\": \"{{room-id-2}}\",\n  \"roomName\": \"{{room-id-2}}\",\n  \"checkinDate\": \"2025-11-14\",\n  \"checkoutDate\": \"2025-11-15\",\n  \"customerID\": \"CUST-12345\",\n  \"customerName\": \"John Doe\",\n  \"customerEmail\": \"john@example.com\",\n  \"customerPhone\": \"081234567890\",\n  \"isBreakfast\": true,\n  \"capacity\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "FORM UPDATE Booking Details",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings/update/{{booking-id}}",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings",
+            "update",
+            "{{booking-id}}"
+          ],
+          "query": [],
+          "variable": []
+        }
+      }
+    },
+    {
+      "name": "UPDATE Booking Details",
+      "event": [],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings/update",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings",
+            "update"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"bookingID\": \"{{booking-id}}\",\n  \"propertyID\": \"{{property-id}}\",\n  \"roomTypeID\": \"{{room-type-id}}\",\n  \"roomID\": \"{{room-id}}\",\n  \"checkinDate\": \"2025-11-15\",\n  \"checkoutDate\": \"2025-11-20\",\n  \"customerID\": \"CUST002\",\n  \"customerName\": \"John Doe\",\n  \"customerEmail\": \"john@example.com\",\n  \"customerPhone\": \"+62812345678\",\n  \"isBreakfast\": true,\n  \"capacity\": 2\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "PAY Booking",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings/status/pay",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings",
+            "status",
+            "pay"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"bookingID\": \"{{booking-id}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "CANCEL Booking",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings/status/cancel",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings",
+            "status",
+            "cancel"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"bookingID\": \"{{booking-id-2}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "REFUND Booking",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings/status/refund",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings",
+            "status",
+            "refund"
+          ],
+          "query": [],
+          "variable": []
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"bookingID\": \"{{booking-id-3}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "READ Chart",
+      "event": [],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "auth": {
+          "type": "noauth"
+        },
+        "description": "",
+        "url": {
+          "raw": "{{base}}/bookings/chart?month=11&year=2025",
+          "protocol": "",
+          "host": [
+            "{{base}}"
+          ],
+          "path": [
+            "bookings",
+            "chart?month=11&year=2025"
+          ],
+          "query": [
+            {
+              "key": "month",
+              "value": "11"
+            },
+            {
+              "key": "year",
+              "value": "2025"
+            }
+          ],
+          "variable": []
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "base_api",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "property-id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "booking-id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "room-id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "room-id-2",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "room-type-id",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "booking-id-2",
+      "value": "",
+      "type": "default"
+    },
+    {
+      "key": "booking-id-3",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
