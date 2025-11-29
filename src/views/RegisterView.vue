@@ -103,8 +103,169 @@
           >
             <option value="CUSTOMER">Pelanggan</option>
             <option value="ACCOMMODATION_OWNER">Pemilik Akomodasi</option>
+            <option value="FLIGHT_AIRLINE">Maskapai Penerbangan</option>
+            <option value="RENTAL_VENDOR">Penyedia Rental Kendaraan</option>
+            <option value="INSURANCE_PROVIDER">Penyedia Asuransi</option>
+            <option value="TOUR_PACKAGE_VENDOR">Penyedia Paket Wisata</option>
+            <option value="SUPERADMIN">Super Admin</option>
           </select>
         </div>
+
+        <!-- Role-specific fields -->
+        <transition name="fade">
+          <!-- ACCOMMODATION_OWNER specific fields -->
+          <div v-if="formData.role === 'ACCOMMODATION_OWNER'" class="role-specific-fields">
+            <h3 class="role-section-title">Informasi Pemilik Akomodasi</h3>
+            <div class="form-group">
+              <label for="companyName">Nama Perusahaan</label>
+              <input
+                id="companyName"
+                v-model="formData.companyName"
+                type="text"
+                class="form-input"
+                placeholder="Masukkan nama perusahaan akomodasi"
+                :disabled="isLoading"
+              />
+            </div>
+            <div class="form-group">
+              <label for="businessLicense">Nomor Izin Usaha</label>
+              <input
+                id="businessLicense"
+                v-model="formData.businessLicense"
+                type="text"
+                class="form-input"
+                placeholder="Masukkan nomor izin usaha"
+                :disabled="isLoading"
+              />
+            </div>
+          </div>
+
+          <!-- FLIGHT_AIRLINE specific fields -->
+          <div v-else-if="formData.role === 'FLIGHT_AIRLINE'" class="role-specific-fields">
+            <h3 class="role-section-title">Informasi Maskapai</h3>
+            <div class="form-group">
+              <label for="airlineName">Nama Maskapai</label>
+              <input
+                id="airlineName"
+                v-model="formData.airlineName"
+                type="text"
+                class="form-input"
+                placeholder="Masukkan nama maskapai"
+                :disabled="isLoading"
+              />
+            </div>
+            <div class="form-group">
+              <label for="airlineCode">Kode Maskapai (IATA)</label>
+              <input
+                id="airlineCode"
+                v-model="formData.airlineCode"
+                type="text"
+                maxlength="2"
+                class="form-input"
+                placeholder="Contoh: GA, QZ"
+                :disabled="isLoading"
+              />
+            </div>
+          </div>
+
+          <!-- RENTAL_VENDOR specific fields -->
+          <div v-else-if="formData.role === 'RENTAL_VENDOR'" class="role-specific-fields">
+            <h3 class="role-section-title">Informasi Penyedia Rental</h3>
+            <div class="form-group">
+              <label for="rentalCompanyName">Nama Perusahaan Rental</label>
+              <input
+                id="rentalCompanyName"
+                v-model="formData.rentalCompanyName"
+                type="text"
+                class="form-input"
+                placeholder="Masukkan nama perusahaan rental"
+                :disabled="isLoading"
+              />
+            </div>
+            <div class="form-group">
+              <label for="vehicleTypes">Jenis Kendaraan</label>
+              <input
+                id="vehicleTypes"
+                v-model="formData.vehicleTypes"
+                type="text"
+                class="form-input"
+                placeholder="Contoh: Mobil, Motor, Bus"
+                :disabled="isLoading"
+              />
+            </div>
+          </div>
+
+          <!-- INSURANCE_PROVIDER specific fields -->
+          <div v-else-if="formData.role === 'INSURANCE_PROVIDER'" class="role-specific-fields">
+            <h3 class="role-section-title">Informasi Penyedia Asuransi</h3>
+            <div class="form-group">
+              <label for="insuranceCompanyName">Nama Perusahaan Asuransi</label>
+              <input
+                id="insuranceCompanyName"
+                v-model="formData.insuranceCompanyName"
+                type="text"
+                class="form-input"
+                placeholder="Masukkan nama perusahaan asuransi"
+                :disabled="isLoading"
+              />
+            </div>
+            <div class="form-group">
+              <label for="licenseNumber">Nomor Lisensi OJK</label>
+              <input
+                id="licenseNumber"
+                v-model="formData.licenseNumber"
+                type="text"
+                class="form-input"
+                placeholder="Masukkan nomor lisensi OJK"
+                :disabled="isLoading"
+              />
+            </div>
+          </div>
+
+          <!-- TOUR_PACKAGE_VENDOR specific fields -->
+          <div v-else-if="formData.role === 'TOUR_PACKAGE_VENDOR'" class="role-specific-fields">
+            <h3 class="role-section-title">Informasi Penyedia Paket Wisata</h3>
+            <div class="form-group">
+              <label for="tourCompanyName">Nama Perusahaan Tour</label>
+              <input
+                id="tourCompanyName"
+                v-model="formData.tourCompanyName"
+                type="text"
+                class="form-input"
+                placeholder="Masukkan nama perusahaan tour"
+                :disabled="isLoading"
+              />
+            </div>
+            <div class="form-group">
+              <label for="tourLicense">Nomor Izin Usaha Pariwisata</label>
+              <input
+                id="tourLicense"
+                v-model="formData.tourLicense"
+                type="text"
+                class="form-input"
+                placeholder="Masukkan nomor izin usaha pariwisata"
+                :disabled="isLoading"
+              />
+            </div>
+          </div>
+
+          <!-- SUPERADMIN specific fields -->
+          <div v-else-if="formData.role === 'SUPERADMIN'" class="role-specific-fields">
+            <h3 class="role-section-title">Verifikasi Admin</h3>
+            <div class="form-group">
+              <label for="adminKey">Kunci Admin</label>
+              <input
+                id="adminKey"
+                v-model="formData.adminKey"
+                type="password"
+                class="form-input"
+                placeholder="Masukkan kunci admin rahasia"
+                :disabled="isLoading"
+              />
+              <span class="form-hint">Diperlukan kunci khusus untuk membuat akun admin</span>
+            </div>
+          </div>
+        </transition>
 
         <!-- Submit Button -->
         <button
@@ -143,6 +304,18 @@ const formData = reactive({
   password: '',
   gender: true,
   role: 'CUSTOMER',
+  // Role-specific fields
+  companyName: '',
+  businessLicense: '',
+  airlineName: '',
+  airlineCode: '',
+  rentalCompanyName: '',
+  vehicleTypes: '',
+  insuranceCompanyName: '',
+  licenseNumber: '',
+  tourCompanyName: '',
+  tourLicense: '',
+  adminKey: '',
 })
 
 const isLoading = ref(false)
@@ -369,5 +542,41 @@ async function handleRegister() {
   .auth-form {
     gap: 1rem;
   }
+}
+
+.role-specific-fields {
+  padding: 1.5rem;
+  background: rgba(212, 165, 116, 0.05);
+  border: 1px solid rgba(212, 165, 116, 0.2);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.role-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary-gold);
+  margin: 0 0 0.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+/* Fade transition for role-specific fields */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(10px);
 }
 </style>
